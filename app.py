@@ -2,9 +2,18 @@ from flask import Flask, render_template, request, redirect, url_for
 import os
 import cv2
 import numpy as np
+import RPi.GPIO as GPIO
+import time
 
 app = Flask(__name__)
+RED_LED = 22    # Physical pin 22
+AMBER_LED = 24  # Physical pin 24
+GREEN_LED = 26  # Physical pin 26
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(RED_LED, GPIO.OUT)
+GPIO.setup(AMBER_LED, GPIO.OUT)
+GPIO.setup(GREEN_LED, GPIO.OUT)
 STATIC_FOLDER = 'static'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'mp4'}
 
@@ -36,9 +45,30 @@ def detect_cars(file_path):
     result_filename = 'result_' + os.path.basename(file_path)
     result_path = os.path.join(app.config['STATIC_FOLDER'], result_filename)
     cv2.imwrite(result_path, image)
+    control_traffic_lights(count)
 
     return count, result_filename
+def calculate_green_light_time(n):
+    T = 1.5 + 2.5 * n + (n - 1)
+    T_ideal = 0.5 * (T + T / 3)
+    return T_ideal
 
+def control_traffic_lights(n):
+    green_light_time = calculate_green_light_time(n)
+    
+    # Blink each LED for 1 second
+    GPIO.output(RED_LED, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(RED_LED, GPIO.LOW)
+
+    GPIO.output(AMBER_LED, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(AMBER_LED, GPIO.LOW)
+
+    GPIO.output(GREEN_LED, GPIO.HIGH)
+    print(f"Green Light Time: {green_light_time} seconds")
+    time.sleep(green_light_time)
+    GPIO.output(GREEN_LED, GPIO.LOW)
 @app.route('/')
 def index():
     return render_template('index.html')
