@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type=file] {
+            margin-bottom: 10px;
+        }
+        input[type=submit] {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #4cae4c;
+        }
+        .images {
+            margin-top: 20px;
+        }
+        img {
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Car Detection</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file"><br>
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if count is defined %}
+        <p>Number of cars in {{ filename }}: {{ count }}</p>
+        <div class="images">
+            <img src="{{ url_for('static', filename=original_filename) }}" alt="Original Image" width="400">
+            <img src="{{ url_for('static', filename=result_filename) }}" alt="Highlighted Image" width="400">
+        </div>
+    {% endif %}
+</body>
+</html>
