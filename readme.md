@@ -1,3 +1,4 @@
+This project captures the image or a video of traffic moving on a road, calculates the ideal time for the green light to turn on, and simulates the same with the logic formed using the raspberry pi
 ![WhatsApp Image 2023-11-29 at 2 23 28 PM](https://github.com/streetstylecoder/smart_traffic_light_using_raspberrypi_and_deep_learning/assets/89967721/cf285a3d-0590-46b6-96fa-532be0afa94c)
 ![WhatsApp Image 2023-11-29 at 2 21 32 PM](https://github.com/streetstylecoder/smart_traffic_light_using_raspberrypi_and_deep_learning/assets/89967721/4d00e8a0-f9a5-442a-aade-6913c4ee75bf)
 ![Screenshot 2023-11-29 142052](https://github.com/streetstylecoder/smart_traffic_light_using_raspberrypi_and_deep_learning/assets/89967721/da0fd50d-4345-428c-9ee0-f648458f312a)
